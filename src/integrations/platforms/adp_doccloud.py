@@ -6,19 +6,19 @@ from fastapi import UploadFile
 
 class PlatformConnector:
     """
-    Specialized connector for ADP DocCloud platform.
+    Specialized connector for BU DocCloud platform.
     Handles authentication and platform-specific requirements.
     """
     
     def __init__(self):
-        """Initialize the ADP DocCloud connector"""
-        self.api_url = os.getenv("ADP_DOCCLOUD_API_URL", "https://api.doccloud.adp.com/v1")
-        self.api_key = os.getenv("ADP_DOCCLOUD_API_KEY")
-        self.client_id = os.getenv("ADP_DOCCLOUD_CLIENT_ID")
-        self.client_secret = os.getenv("ADP_DOCCLOUD_CLIENT_SECRET")
+        """Initialize the BU DocCloud connector"""
+        self.api_url = os.getenv("BU_DOCCLOUD_API_URL", "https://api.doccloud.BU.com/v1")
+        self.api_key = os.getenv("BU_DOCCLOUD_API_KEY")
+        self.client_id = os.getenv("BU_DOCCLOUD_CLIENT_ID")
+        self.client_secret = os.getenv("BU_DOCCLOUD_CLIENT_SECRET")
         
         if not self.api_key or not self.client_id or not self.client_secret:
-            raise ValueError("Missing ADP DocCloud API credentials in environment variables")
+            raise ValueError("Missing BU DocCloud API credentials in environment variables")
     
     async def push_document(
         self,
@@ -28,7 +28,7 @@ class PlatformConnector:
         callback_url: Optional[str] = None
     ) -> Dict[str, Any]:
         """
-        Push document and classification to ADP DocCloud
+        Push document and classification to BU DocCloud
         
         Args:
             document_id: Unique document identifier
@@ -50,7 +50,7 @@ class PlatformConnector:
             "contentType": file.content_type,
             "documentType": classification_result["document_type"],
             "metadataFields": [
-                # Convert flat metadata dict to ADP DocCloud's field format
+                # Convert flat metadata dict to BU DocCloud's field format
                 {"name": key, "value": value}
                 for key, value in classification_result["metadata"].items()
             ],
@@ -64,11 +64,11 @@ class PlatformConnector:
             return {
                 "success": False,
                 "error": "Failed to obtain authentication token",
-                "platform": "adp_doccloud"
+                "platform": "BU_doccloud"
             }
         
         try:
-            # Upload document to ADP DocCloud
+            # Upload document to BU DocCloud
             async with aiohttp.ClientSession() as session:
                 # First, create document metadata
                 metadata_url = f"{self.api_url}/documents"
@@ -78,7 +78,7 @@ class PlatformConnector:
                     headers={
                         "Authorization": f"Bearer {auth_token}",
                         "Content-Type": "application/json",
-                        "X-ADP-Client-ID": self.client_id
+                        "X-BU-Client-ID": self.client_id
                     }
                 ) as metadata_response:
                     if metadata_response.status >= 400:
@@ -86,14 +86,14 @@ class PlatformConnector:
                         return {
                             "success": False,
                             "error": f"Metadata creation failed: {error_text}",
-                            "platform": "adp_doccloud"
+                            "platform": "BU_doccloud"
                         }
                     
                     metadata_result = await metadata_response.json()
-                    adp_document_id = metadata_result.get("documentId")
+                    BU_document_id = metadata_result.get("documentId")
                 
                 # Then, upload file content
-                upload_url = f"{self.api_url}/documents/{adp_document_id}/content"
+                upload_url = f"{self.api_url}/documents/{BU_document_id}/content"
                 
                 # Create form data with file
                 form_data = aiohttp.FormData()
@@ -109,7 +109,7 @@ class PlatformConnector:
                     data=form_data,
                     headers={
                         "Authorization": f"Bearer {auth_token}",
-                        "X-ADP-Client-ID": self.client_id
+                        "X-BU-Client-ID": self.client_id
                     }
                 ) as upload_response:
                     if upload_response.status >= 400:
@@ -117,16 +117,16 @@ class PlatformConnector:
                         return {
                             "success": False,
                             "error": f"File upload failed: {error_text}",
-                            "platform": "adp_doccloud"
+                            "platform": "BU_doccloud"
                         }
                 
                 # Notify callback URL if provided
                 if callback_url:
                     callback_data = {
                         "document_id": document_id,
-                        "platform": "adp_doccloud",
+                        "platform": "BU_doccloud",
                         "status": "success",
-                        "platform_document_id": adp_document_id,
+                        "platform_document_id": BU_document_id,
                         "classification": classification_result["document_type"]
                     }
                     
@@ -139,20 +139,20 @@ class PlatformConnector:
                 
                 return {
                     "success": True,
-                    "platform_document_id": adp_document_id,
-                    "platform": "adp_doccloud"
+                    "platform_document_id": BU_document_id,
+                    "platform": "BU_doccloud"
                 }
         
         except Exception as e:
             return {
                 "success": False,
                 "error": str(e),
-                "platform": "adp_doccloud"
+                "platform": "BU_doccloud"
             }
     
     async def _get_auth_token(self) -> Optional[str]:
         """
-        Get authentication token from ADP OAuth API
+        Get authentication token from BU OAuth API
         
         Returns:
             Authentication token or None if failed

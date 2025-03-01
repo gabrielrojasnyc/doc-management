@@ -17,10 +17,10 @@ class PlatformConnector:
         self.debug_mode = debug_mode.lower() in ["true", "1"]
         
         self.platforms = {
-            "adp_doccloud": {
-                "name": "ADP DocCloud",
-                "description": "Native ADP document management platform",
-                "api_url": os.getenv("ADP_DOCCLOUD_API_URL", "https://api.doccloud.adp.com/v1")
+            "BU_doccloud": {
+                "name": "BU DocCloud",
+                "description": "Native BU document management platform",
+                "api_url": os.getenv("BU_DOCCLOUD_API_URL", "https://api.doccloud.BU.com/v1")
             },
             "sharepoint": {
                 "name": "Microsoft SharePoint",

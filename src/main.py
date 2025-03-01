@@ -11,8 +11,8 @@ from src.core.document_processor import DocumentProcessor
 from src.integrations.platform_connector import PlatformConnector
 
 app = FastAPI(
-    title="ADP DocCloud Document Classification Service",
-    description="An LLM-based document classification service for ADP DocCloud Platform",
+    title="BU DocCloud Document Classification Service",
+    description="An LLM-based document classification service for BU DocCloud Platform",
     version="1.0.0",
 )
 
@@ -39,7 +39,7 @@ class ClassificationResult(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "ADP DocCloud Document Classification Service"}
+    return {"message": "BU DocCloud Document Classification Service"}
 
 
 @app.post("/classify", response_model=List[ClassificationResult])

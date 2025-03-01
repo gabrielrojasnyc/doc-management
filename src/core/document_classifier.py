@@ -57,7 +57,7 @@ class DocumentClassifier:
         
         # Classification prompt template
         self.classification_prompt = ChatPromptTemplate.from_template(
-            """You are an expert document classifier for ADP DocCloud Platform.
+            """You are an expert document classifier for BU DocCloud Platform.
             
 Your task is to analyze document content and classify it into one of the following categories:
 - I-9 (Employment Eligibility Verification)

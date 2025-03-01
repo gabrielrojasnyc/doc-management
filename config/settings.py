@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """Application settings"""
     
     # Application settings
-    APP_NAME: str = "ADP DocCloud Document Classification Service"
+    APP_NAME: str = "BU DocCloud Document Classification Service"
     APP_VERSION: str = "1.0.0"
     API_PREFIX: str = "/api/v1"
     DEBUG: bool = Field(default=False)
@@ -36,11 +36,11 @@ class Settings(BaseSettings):
     # Storage settings
     TEMP_FILE_DIR: str = Field(default="/tmp/doc_classification")
     
-    # ADP DocCloud settings
-    ADP_DOCCLOUD_API_URL: str = Field(default="https://api.doccloud.adp.com/v1")
-    ADP_DOCCLOUD_API_KEY: str = Field(default="")
-    ADP_DOCCLOUD_CLIENT_ID: str = Field(default="")
-    ADP_DOCCLOUD_CLIENT_SECRET: str = Field(default="")
+    # BU DocCloud settings
+    BU_DOCCLOUD_API_URL: str = Field(default="https://api.doccloud.BU.com/v1")
+    BU_DOCCLOUD_API_KEY: str = Field(default="")
+    BU_DOCCLOUD_CLIENT_ID: str = Field(default="")
+    BU_DOCCLOUD_CLIENT_SECRET: str = Field(default="")
     
     class Config:
         env_file = ".env"

@@ -1,6 +1,6 @@
-# ADP DocCloud Document Classification Service
+# BU DocCloud Document Classification Service
 
-An LLM-powered document classification service for ADP DocCloud Platform, capable of integrating with various document management systems.
+An LLM-powered document classification service for BU DocCloud Platform, capable of integrating with various document management systems.
 
 ## Overview
 
@@ -17,7 +17,7 @@ This service analyzes and classifies documents using state-of-the-art LLMs. It c
 ## Features
 
 - **Intelligent Document Classification**: Uses advanced LLMs to accurately classify documents
-- **Platform Integration**: Seamless integration with ADP DocCloud and other document management platforms
+- **Platform Integration**: Seamless integration with BU DocCloud and other document management platforms
 - **Bulk Upload Support**: Process multiple documents efficiently
 - **OCR Capabilities**: Extract text from images and scanned documents
 - **Metadata Extraction**: Pull relevant information from documents (dates, names, IDs)
@@ -28,7 +28,7 @@ This service analyzes and classifies documents using state-of-the-art LLMs. It c
 
 - Python 3.9+
 - OpenAI API key
-- ADP DocCloud API credentials (for platform integration)
+- BU DocCloud API credentials (for platform integration)
 
 ## Installation
 
@@ -73,7 +73,7 @@ This service analyzes and classifies documents using state-of-the-art LLMs. It c
      -H "accept: application/json" \
      -H "Content-Type: multipart/form-data" \
      -F "files=@/path/to/document.pdf" \
-     -F "platform=adp_doccloud" \
+     -F "platform=BU_doccloud" \
      -F "callback_url=https://your-callback-url.com"
    ```
 
@@ -87,7 +87,7 @@ This service analyzes and classifies documents using state-of-the-art LLMs. It c
 ## Integration with Document Management Platforms
 
 The service supports these platforms out of the box:
-- ADP DocCloud (native support)
+- BU DocCloud (native support)
 - Microsoft SharePoint
 - Box
 - Dropbox
@@ -118,4 +118,4 @@ MIT
 
 ## Support
 
-For issues or questions, contact the ADP DocCloud support team.
+For issues or questions, contact the BU DocCloud support team.
